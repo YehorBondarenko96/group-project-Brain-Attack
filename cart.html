@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/svg+xml" href="/group-project-Brain-Attack/favicon.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+      integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    
+
+    <title>Cart</title>
+    <script type="module" crossorigin src="/group-project-Brain-Attack/commonHelpers.js"></script>
+    <link rel="modulepreload" crossorigin href="/group-project-Brain-Attack/assets/vendor-27c5a77b.js">
+    <link rel="modulepreload" crossorigin href="/group-project-Brain-Attack/assets/icons-c03f2850.js">
+    <link rel="stylesheet" href="/group-project-Brain-Attack/assets/icons-93236ba6.css">
+  </head>
+  <body>
+    <!-- header -->
+    <header class="page-header-container container">
+  <nav class="main-nav">
+    <div class="logo-wrapper">
+      <a class="logo-link" href="./index.html">
+        <svg class="header-logo-icon">
+          <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-logo-header"></use>
+        </svg>
+        Food Boutique
+      </a>
+    </div>
+
+    <ul class="navig-wrapper list">
+      <li>
+        <a class="link-home" href="./index.html">Home</a>
+      </li>
+      <li class="header-basket">
+        <div class="header-besket-wrapper">
+          <a class="header-basket-item" href="./cart.html">
+            <span class="icon-basket-wrap">
+              <svg class="icon-basket-header">
+                <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-basket"></use>
+              </svg>
+            </span>
+            <span class="cart-amount"
+              >Cart (<span class="js-header-cart-items">0</span>)</span
+            >
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+<!-- <script src="./js/header" type="module"></script> -->
+
+
+    <!-- Cart -->
+    <div class="total-cart-container">
+      <div class="cart-quantity">
+        <div class="cart-icon-wrapper">
+          <svg class="cart-basket-icon">
+            <use
+              href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-heroicons-solid_shopping-cart"
+            ></use>
+          </svg>
+        </div>
+
+        <p class="cart-title">
+          CART (<span class="js-cart-items-quantity"></span>)
+        </p>
+      </div>
+
+      <div class="js-cart-empty" id="empty-cart-second">
+        <picture class="hero-picture">
+          <source
+            srcset="/group-project-Brain-Attack/assets/yellow-shopping-basket-x1-50c33d28.png 1x, /group-project-Brain-Attack/assets/yellow-shopping-basket-x2-88f54c61.png 2x"
+            media="(min-width: 1240px)"
+          />
+
+          <source
+            srcset="/group-project-Brain-Attack/assets/yellow-shopping-basket-x1-50c33d28.png 1x, /group-project-Brain-Attack/assets/yellow-shopping-basket-x2-88f54c61.png 2x"
+            media="(min-width: 768px)"
+          />
+
+          <source
+            srcset="/group-project-Brain-Attack/assets/yellow-shopping-basket-x1-50c33d28.png 1x, /group-project-Brain-Attack/assets/yellow-shopping-basket-x2-88f54c61.png 2x"
+            media="(max-width: 767.9px)"
+          />
+
+          <img
+            src="/group-project-Brain-Attack/assets/yellow-shopping-basket-x1-50c33d28.png"
+            alt="Yellow basket"
+            class="cart-basket-img"
+          />
+        </picture>
+
+        <div class="text-frame">
+          <p class="cart-text-empty-1">
+            <b
+              >Your basket is
+              <a
+                href="./index.html"
+                style="color: #6d8434; text-decoration: none"
+                >empty...</a
+              ></b
+            >
+          </p>
+          <p class="cart-text-empty-2">
+            Go to the main page to select your favorite products and add them to
+            the cart.
+          </p>
+        </div>
+      </div>
+
+      <div class="js-cart-container">
+        <div class="cart-products">
+          <button class="js-delete-all-btn">
+            Delete All<svg class="cart-delete-all-icon">
+              <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-ion_close-sharp"></use>
+            </svg>
+          </button>
+
+          <div class="js-cart-selected-products"></div>
+        </div>
+
+        <div class="js-cart-order-details">
+          <p class="cart-order-text">YOUR ORDER</p>
+          <div class="cart-total-cost-wrap">
+            <div class="cart-total-cost">
+              <p class="cart-total-cost-text-1">Total</p>
+              <p class="cart-total-cost-text-2">
+                Sum: <span class="js-total-ordered-price">$</span>
+              </p>
+            </div>
+          </div>
+          <form class="js-email-form">
+            <div class="js-static-text-mail">Mail:</div>
+            <input
+              name="mail"
+              class="cart-input"
+              type="email"
+              placeholder="Enter your email"
+              required
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              title="Enter a valid email address"
+            />
+            <button type="submit" class="js-email-checkout">Checkout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Перше модальне вікно  -->
+<div class="backdrop js-backdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <button type="button" data-action="close-modal" class="close-modal-svg">
+        <svg width="22" height="22">
+          <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-ion_close-sharp"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img">
+        <svg class="modal-discount-svg hidden" width="60" height="60">
+          <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-discount-1"></use>
+        </svg>
+        <img src="#" alt="" />
+      </div>
+      <div class="modal-info-cart">
+        <h3 class="modal-title"></h3>
+        <ul class="modal-list">
+          <li class="modal-item">
+            Category:<span class="modal-item-span"></span>
+          </li>
+          <li class="modal-item">Size:<span class="modal-item-span"></span></li>
+          <li class="modal-item">
+            Popularity:<span class="modal-item-span"></span>
+          </li>
+        </ul>
+        <p class="modal-info-taxt"></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <span class="modal-price"></span>
+      <button type="button" class="modal-btn-sabmit">
+        <span class="modal-btn-sabmit-span">Add to</span>
+        <svg width="18" height="18">
+          <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-heroicons-solid_shopping-cart"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Друге модальне вікно  -->
+<div class="backdrop-ordered js-backdrop-ordered">
+  <div class="modal-ordered">
+    <div class="modal-header-ordered">
+      <button
+        type="button"
+        data-action="close-modal-cart"
+        class="close-modal-svg"
+      >
+        <svg width="22" height="22">
+          <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-ion_close-sharp"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body-ordered">
+      <div class="modal-img-ordered">
+        <img src="/group-project-Brain-Attack/assets/modal-708d1696.png" alt="Order success" />
+        <svg class="modal-svg-ordered" width="145" height="28">
+          <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-Ellipse-1"></use>
+        </svg>
+      </div>
+      <div class="modal-info-cart-ordered">
+        <h3 class="modal-title-ordered">Order success</h3>
+        <p class="modal-info-taxt-ordered">
+          Thank you for shopping at Food Boutique. Your order has been received
+          and is now being freshly prepared just for you! Get ready to indulge
+          in nourishing goodness, delivered right to your doorstep. We're
+          thrilled to be part of your journey to better health and happiness.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-content-wrap">
+      <!-- =======logo and social media==================================== -->
+
+      <div class="footer-logo-social">
+        <a class="link footer-logo-link" href="./index.html">
+          <svg class="footer-logo-icon">
+            <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-logo"></use>
+          </svg>
+          Food Boutique
+        </a>
+        <ul class="footer-social-media-list list">
+          <li class="social-media-item">
+            <a
+              class="social-media-link link"
+              href=" https://www.facebook.com/goITclub/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook link"
+            >
+              <svg class="social-media-icon">
+                <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-facebook"></use>
+              </svg>
+            </a>
+          </li>
+
+          <li class="social-media-item">
+            <a
+              class="social-media-link link"
+              href=" https://www.instagram.com/goitclub/ "
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram link"
+            >
+              <svg class="social-media-icon">
+                <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-instagram"></use>
+              </svg>
+            </a>
+          </li>
+
+          <li class="social-media-item">
+            <a
+              class="social-media-link link"
+              href="https://www.youtube.com/c/GoIT"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Youtub link"
+            >
+              <svg class="social-media-icon">
+                <use href="/group-project-Brain-Attack/assets/icons-617986b7.svg#icon-youtube"></use>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ==========slogan============================== -->
+
+      <div class="footer-main-info-wrap">
+        <div class="text-block">
+          <h2 class="footer-slogan-title">
+            Discover the Variety of Flavors and Quality
+          </h2>
+          <p class="footer-slogan">
+            An online store where you will find fresh, natural and delicious
+            products for a healthy life and unforgettable gastronomic
+            adventures.
+          </p>
+        </div>
+
+        <!-- =======subscription form==================================== -->
+
+        <div class="subscription-wrap">
+          <p class="suscription-text">
+            Subscribe and learn about new products!
+          </p>
+
+          <form class="footer-form">
+            <div class="contact-form-box">
+              <input
+                type="email"
+                id="user-email"
+                name="email"
+                placeholder="Email"
+                class="contact-form-input"
+                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                required
+              />
+
+              <button type="submit" class="footer-form-btn">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======copywriting and policy link================================== -->
+
+    <div class="footer-policy-wrap">
+      <div>
+        <p class="footer-copywriting-text">
+          Food Boutique. All rights reserved.
+        </p>
+      </div>
+      <div class="footer-terms-wrap">
+        <p class="footer-privacy-policy-link js-modal-policy-open">
+          Privacy Policy
+        </p>
+
+        <span class="footer-policy-dividion">/</span>
+
+        <p class="footer-terms-link js-modal-terms-open">Terms of Service</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======modal policy and terms==================================== -->
+
+  <div
+    class="modal-policy-container is-hidden-policy js-policy"
+    id="#privacy-policy"
+  >
+    <div class="modal-policy-body">
+      <div class="modal-privacy-policy">
+        <div class="privacy-policy-content">
+          <h2 class="policy-title">Privacy Policy</h2>
+          <p class="policy-date">Last Edite: 23/11/2023</p>
+          <p class="policy-greeting">Greetings Users,</p>
+          <p class="policy-text">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam,
+            vel! Ipsa fuga veniam adipisci incidunt temporibus unde voluptates
+            debitis dolores autem modi natus necessitatibus quos iure
+            laudantium, blanditiis at! Amet veniam consectetur provident modi
+            voluptatum commodi maxime quia similique a dolorem, maiores sed quas
+            obcaecati necessitatibus ratione ipsam? Qui minima, expedita impedit
+            perspiciatis fuga optio modi voluptatum quaerat mollitia nisi iusto
+            eveniet placeat? Aut nihil assumenda aliquam ea magni fugit nulla
+            aliquid perferendis temporibus perspiciatis voluptate recusandae
+            fuga ipsam natus, earum unde sunt eos sit facere nostrum consequatur
+            voluptatem illum! Quibusdam corporis laudantium ratione, placeat
+            quam est? Nam voluptatem fugiat ab impedit alias recusandae libero
+            reprehenderit in eum soluta quidem dolor atque veritatis molestiae
+            harum quis quisquam tempora, culpa, aliquid tenetur nostrum animi
+            sed est officiis? Quaerat atque, aliquam ad voluptates alias
+            incidunt repellat ut ipsa explicabo quod, veritatis ullam, placeat
+            ducimus corrupti necessitatibus blanditiis. Ex magni repellat amet
+            deleniti enim iusto quam? Dolores, tempore doloribus minus, ad
+            obcaecati exercitationem perspiciatis ducimus fuga ipsam
+            consequuntur quas veniam eum, rem dolor asperiores. Culpa doloremque
+            recusandae tempore maxime laboriosam voluptatem, neque perferendis
+            voluptas voluptatum vel nam possimus, est libero eveniet, quos
+            nesciunt sequi. Quod magni iure officia possimus eligendi magnam
+            modi. Repellendus illum, accusamus ea iusto praesentium minus hic
+            consequatur voluptate quos et laboriosam recusandae ex eius nihil,
+            adipisci quam deserunt deleniti molestias quod nulla debitis tempore
+            distinctio. Soluta, doloremque minus. Illo optio possimus quas odit
+            velit obcaecati, vitae quaerat impedit dicta perspiciatis, inventore
+            corrupti voluptatem repudiandae magnam vero adipisci. Dolore
+            corrupti expedita nesciunt! Laborum, earum eum! At veritatis iste
+            repellat assumenda aperiam labore ipsam, vel dolores sunt asperiores
+            libero expedita et sapiente nulla aspernatur, reprehenderit eaque
+            inventore eligendi, unde veniam? Adipisci magni aut et magnam quos
+            inventore consequatur earum repellat facere iusto. Mollitia nulla
+            ducimus dolores cumque facilis, quod vel porro rem pariatur,
+            delectus iusto, accusamus nemo ab sed fugit sapiente! Sint corporis
+            quidem, sapiente sit earum pariatur iusto accusantium harum ullam,
+            eum, aut doloremque perferendis architecto esse fugit repellat
+            maiores dolore unde autem dolorum recusandae. Ad pariatur iusto,
+            itaque ducimus cumque est voluptatibus earum atque expedita, placeat
+            nostrum minima facilis voluptas saepe dolores tempora voluptates
+            fugit? Sint officiis saepe soluta expedita repellendus excepturi
+            rerum. Nulla laudantium ad accusantium doloremque fugit in totam
+            doloribus pariatur dignissimos nobis, fuga veritatis veniam esse
+            voluptatum expedita. Amet adipisci esse voluptate, exercitationem
+            unde cumque enim dolore maxime repellendus incidunt sapiente culpa
+            quisquam odio? Rem iusto nihil veniam porro reiciendis cumque enim
+            exercitationem ea sequi quisquam, nisi nostrum corporis qui, eveniet
+            pariatur quam quis autem eius? Deleniti perspiciatis fugiat nam
+            dolores animi deserunt, dolor vitae officia veniam ipsam! Voluptate
+            sequi voluptatem, qui veniam sapiente aut animi beatae saepe
+            recusandae autem nostrum deserunt quaerat nihil sit excepturi,
+            debitis perferendis libero? Aperiam a veniam, ex tempora aliquam vel
+            minima quam quasi consequuntur non fugit veritatis velit provident
+            sed necessitatibus, dolores at in eveniet doloribus totam soluta,
+            architecto rerum numquam. Quisquam cupiditate at adipisci, vero
+            provident quia dicta blanditiis reprehenderit laboriosam quasi,
+            voluptatem autem amet voluptas dolore consequuntur voluptatibus?
+          </p>
+        </div>
+        <div class="policy-button-wrap">
+          <button class="policy-btn js-policy-close">Accept and close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-policy-container is-hidden-policy js-terms" id="#terms">
+    <div class="modal-policy-body">
+      <div class="modal-privacy-policy">
+        <div class="privacy-policy-content">
+          <h2 class="policy-title">Terms Of Service</h2>
+          <p class="policy-date">Last Edite: 23/11/2023</p>
+          <p class="policy-greeting">Greetings Users,</p>
+          <p class="policy-text">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam,
+            vel! Ipsa fuga veniam adipisci incidunt temporibus unde voluptates
+            debitis dolores autem modi natus necessitatibus quos iure
+            laudantium, blanditiis at! Amet veniam consectetur provident modi
+            voluptatum commodi maxime quia similique a dolorem, maiores sed quas
+            obcaecati necessitatibus ratione ipsam? Qui minima, expedita impedit
+            perspiciatis fuga optio modi voluptatum quaerat mollitia nisi iusto
+            eveniet placeat? Aut nihil assumenda aliquam ea magni fugit nulla
+            aliquid perferendis temporibus perspiciatis voluptate recusandae
+            fuga ipsam natus, earum unde sunt eos sit facere nostrum consequatur
+            voluptatem illum! Quibusdam corporis laudantium ratione, placeat
+            quam est? Nam voluptatem fugiat ab impedit alias recusandae libero
+            reprehenderit in eum soluta quidem dolor atque veritatis molestiae
+            harum quis quisquam tempora, culpa, aliquid tenetur nostrum animi
+            sed est officiis? Quaerat atque, aliquam ad voluptates alias
+            incidunt repellat ut ipsa explicabo quod, veritatis ullam, placeat
+            ducimus corrupti necessitatibus blanditiis. Ex magni repellat amet
+            deleniti enim iusto quam? Dolores, tempore doloribus minus, ad
+            obcaecati exercitationem perspiciatis ducimus fuga ipsam
+            consequuntur quas veniam eum, rem dolor asperiores. Culpa doloremque
+            recusandae tempore maxime laboriosam voluptatem, neque perferendis
+            voluptas voluptatum vel nam possimus, est libero eveniet, quos
+            nesciunt sequi. Quod magni iure officia possimus eligendi magnam
+            modi. Repellendus illum, accusamus ea iusto praesentium minus hic
+            consequatur voluptate quos et laboriosam recusandae ex eius nihil,
+            adipisci quam deserunt deleniti molestias quod nulla debitis tempore
+            distinctio. Soluta, doloremque minus. Illo optio possimus quas odit
+            velit obcaecati, vitae quaerat impedit dicta perspiciatis, inventore
+            corrupti voluptatem repudiandae magnam vero adipisci. Dolore
+            corrupti expedita nesciunt! Laborum, earum eum! At veritatis iste
+            repellat assumenda aperiam labore ipsam, vel dolores sunt asperiores
+            libero expedita et sapiente nulla aspernatur, reprehenderit eaque
+            inventore eligendi, unde veniam? Adipisci magni aut et magnam quos
+            inventore consequatur earum repellat facere iusto. Mollitia nulla
+            ducimus dolores cumque facilis, quod vel porro rem pariatur,
+            delectus iusto, accusamus nemo ab sed fugit sapiente! Sint corporis
+            quidem, sapiente sit earum pariatur iusto accusantium harum ullam,
+            eum, aut doloremque perferendis architecto esse fugit repellat
+            maiores dolore unde autem dolorum recusandae. Ad pariatur iusto,
+            itaque ducimus cumque est voluptatibus earum atque expedita, placeat
+            nostrum minima facilis voluptas saepe dolores tempora voluptates
+            fugit? Sint officiis saepe soluta expedita repellendus excepturi
+            rerum. Nulla laudantium ad accusantium doloremque fugit in totam
+            doloribus pariatur dignissimos nobis, fuga veritatis veniam esse
+            voluptatum expedita. Amet adipisci esse voluptate, exercitationem
+            unde cumque enim dolore maxime repellendus incidunt sapiente culpa
+            quisquam odio? Rem iusto nihil veniam porro reiciendis cumque enim
+            exercitationem ea sequi quisquam, nisi nostrum corporis qui, eveniet
+            pariatur quam quis autem eius? Deleniti perspiciatis fugiat nam
+            dolores animi deserunt, dolor vitae officia veniam ipsam! Voluptate
+            sequi voluptatem, qui veniam sapiente aut animi beatae saepe
+            recusandae autem nostrum deserunt quaerat nihil sit excepturi,
+            debitis perferendis libero? Aperiam a veniam, ex tempora aliquam vel
+            minima quam quasi consequuntur non fugit veritatis velit provident
+            sed necessitatibus, dolores at in eveniet doloribus totam soluta,
+            architecto rerum numquam. Quisquam cupiditate at adipisci, vero
+            provident quia dicta blanditiis reprehenderit laboriosam quasi,
+            voluptatem autem amet voluptas dolore consequuntur voluptatibus?
+          </p>
+        </div>
+        <div class="policy-button-wrap">
+          <button class="policy-btn js-terms-close" data-modal-policy-close>
+            Accept and close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+    <!-- <section>
+      <a href="./index.html">Go to home</a>
+      <h1>Welcome to page 2</h1>
+    </section> -->
+    <!-- <script src="./js/footer.js" type="module"></script> -->
+  </body>
+</html>
